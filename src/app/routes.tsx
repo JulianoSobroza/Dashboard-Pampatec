@@ -13,6 +13,10 @@ import { ResultsResources } from "./pages/ResultsResources";
 import { TransparencyDashboard } from "./pages/TransparencyDashboard";
 import { FlowMap } from "./pages/FlowMap";
 import { ResearcherDashboard } from "./pages/ResearcherDashboard";
+import { CommitteeDashboard } from "./pages/CommitteeDashboard";
+import { AdminDashboard } from "./pages/AdminDashboard";
+import { EditalConfig } from "./pages/EditalConfig";
+import { AccessDenied } from "./pages/AccessDenied";
 
 export const router = createBrowserRouter([
   {
@@ -70,5 +74,21 @@ export const router = createBrowserRouter([
   {
     path: "/pesquisador",
     Component: ResearcherDashboard,
+  },
+  {
+    path: "/comissao",
+    Component: CommitteeDashboard,
+  },
+  {
+    path: "/admin",
+    Component: AdminDashboard,
+  },
+  {
+    path: "/gestor/editais",
+    Component: EditalConfig,
+  },
+  {
+    path: "/acesso-negado",
+    Component: AccessDenied,
   },
 ]);

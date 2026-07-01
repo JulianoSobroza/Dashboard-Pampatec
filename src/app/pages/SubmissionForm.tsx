@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { Header } from "../components/Header";
 import { PrototypeNote } from "../components/PrototypeNote";
 import { Check, ChevronRight } from "lucide-react";
+import { createProposal, listPublishedEditais, type EditalApi } from "../lib/api";
 
 const steps = [
   "Contatos",
@@ -15,7 +17,50 @@ const steps = [
 ];
 
 export function SubmissionForm() {
-  const [currentStep, setCurrentStep] = useState(1);
+  const navigate = useNavigate();
+  const [currentStep, setCurrentStep] = useState(0);
+  const [editais, setEditais] = useState<EditalApi[]>([]);
+  const [titulo, setTitulo] = useState("AgroSense Pampa");
+  const [resumo, setResumo] = useState("Sistema IoT para monitoramento em tempo real de variáveis do solo para agricultura de precisão no bioma Pampa.");
+  const [message, setMessage] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    listPublishedEditais()
+      .then(setEditais)
+      .catch(() => setError("Não foi possível carregar os editais publicados. Verifique se o backend está rodando."));
+  }, []);
+
+  async function handleSubmit() {
+    setError(null);
+    setMessage(null);
+    if (!titulo.trim()) {
+      setError("Informe o nome da empresa ou projeto.");
+      setCurrentStep(0);
+      return;
+    }
+    if (!resumo.trim()) {
+      setError("Informe a proposta de valor ou resumo da solução.");
+      setCurrentStep(1);
+      return;
+    }
+    const edital = editais[0];
+    if (!edital) {
+      setError("Nenhum edital publicado foi encontrado no backend.");
+      return;
+    }
+    setSaving(true);
+    try {
+      const proposal = await createProposal({ edital_id: edital.id, titulo, resumo });
+      setMessage(`Manifestação enviada. Protocolo gerado: ${proposal.protocolo}. Status: Em triagem.`);
+      setTimeout(() => navigate("/empreendedor"), 900);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Falha ao enviar manifestação.");
+    } finally {
+      setSaving(false);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-[#fafafa]">
@@ -24,7 +69,7 @@ export function SubmissionForm() {
       <main className="mx-auto max-w-[1080px] px-6 py-8">
         <div className="mb-6">
           <h1 className="text-[#1a4d2e] mb-2">Submissão de proposta</h1>
-          <p className="text-[#4f6f52]">AgroSense Pampa • Protocolo PSL-2026-047</p>
+          <p className="text-[#4f6f52]">{editais[0]?.titulo ?? "Carregando edital publicado..."} • manifestação real no backend</p>
         </div>
 
         <div className="grid grid-cols-4 gap-6">
@@ -71,7 +116,8 @@ export function SubmissionForm() {
                       </label>
                       <input
                         type="text"
-                        defaultValue="AgroSense Pampa"
+                        value={titulo}
+                        onChange={(event) => setTitulo(event.target.value)}
                         className="w-full px-3 py-2 border border-[#4f6f52]/30 bg-white"
                       />
                     </div>
@@ -149,7 +195,8 @@ export function SubmissionForm() {
                       </label>
                       <textarea
                         rows={4}
-                        defaultValue="Sistema IoT para monitoramento em tempo real de variáveis do solo (umidade, pH, nutrientes) para agricultura de precisão no bioma Pampa."
+                        value={resumo}
+                        onChange={(event) => setResumo(event.target.value)}
                         className="w-full px-3 py-2 border border-[#4f6f52]/30 bg-white"
                       />
                       <p className="text-xs text-[#4f6f52] mt-1">
@@ -399,6 +446,17 @@ export function SubmissionForm() {
                 </div>
               )}
 
+              {error && (
+                <div className="mt-6 border border-red-200 bg-red-50 text-red-700 px-4 py-3 text-sm">
+                  {error}
+                </div>
+              )}
+              {message && (
+                <div className="mt-6 border border-[#8fbc8f] bg-[#8fbc8f]/15 text-[#1a4d2e] px-4 py-3 text-sm">
+                  {message}
+                </div>
+              )}
+
               {/* Navigation Buttons */}
               <div className="flex justify-between mt-8 pt-6 border-t border-[#1a4d2e]/10">
                 <button
@@ -420,8 +478,8 @@ export function SubmissionForm() {
                       Próxima etapa
                     </button>
                   ) : (
-                    <button className="px-6 py-2 bg-[#1a4d2e] text-white hover:bg-[#4f6f52]">
-                      Finalizar e enviar
+                    <button onClick={handleSubmit} disabled={saving} className="px-6 py-2 bg-[#1a4d2e] text-white hover:bg-[#4f6f52] disabled:opacity-50">
+                      {saving ? "Enviando..." : "Finalizar e enviar"}
                     </button>
                   )}
                 </div>
