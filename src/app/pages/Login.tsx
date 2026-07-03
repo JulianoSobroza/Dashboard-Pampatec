@@ -70,16 +70,16 @@ export function Login() {
       navigate(roleHome[roles[0]]);
     } catch (backendError) {
       setBackendAvailable(false);
-      const message = backendError instanceof Error ? backendError.message : "Falha ao autenticar no backend.";
+      const message = backendError instanceof Error ? backendError.message : "Falha ao iniciar demonstração.";
       if (!message.toLowerCase().includes("failed to fetch") && !message.toLowerCase().includes("networkerror")) {
         setError(`${message}. Os dados preenchidos foram preservados.`);
         return;
       }
 
-      // Fallback para demo visual quando o backend não estiver iniciado.
+      // Modo demonstrativo com dados locais.
       const user = mockUsers.find((item) => item.email === email && item.password === password);
       if (!user) {
-        setError("Backend indisponível e credenciais inválidas no modo demo. Revise e-mail e senha.");
+        setError("Credenciais inválidas na demonstração. Revise e-mail e senha.");
         return;
       }
       if (!user.active) {
@@ -111,8 +111,8 @@ export function Login() {
       setBackendAvailable(true);
       navigate(roleHome[role]);
     } catch (error) {
-      // Se o backend não estiver rodando, o botão ainda abre a navegação visual.
-      // Quando o backend estiver ativo, ele autentica automaticamente com o usuário correto.
+      // Botão de acesso direto para a navegação visual.
+      // A sessão simulada utiliza o perfil selecionado.
       const message = error instanceof Error ? error.message : "Não foi possível acessar este perfil.";
       if (message.toLowerCase().includes("failed to fetch") || message.toLowerCase().includes("networkerror")) {
         saveDemoSession(role);
@@ -135,7 +135,7 @@ export function Login() {
           <section>
             <h1 className="text-[#1a4d2e] mb-3">Acesso ao sistema</h1>
             <p className="text-sm text-[#4f6f52] mb-6">
-              Use o formulário ou clique diretamente em um perfil para abrir a demonstração. Quando o backend estiver rodando, o acesso é autenticado automaticamente.
+              Use o formulário ou clique diretamente em um perfil para abrir a demonstração. O acesso é demonstrativo e abre diretamente o perfil selecionado.
             </p>
             
             <div className="bg-white border border-[#1a4d2e]/10 p-6 mb-6 shadow-sm">
@@ -180,7 +180,7 @@ export function Login() {
 
             {backendAvailable !== null && (
               <div className={`mb-4 border p-3 text-sm ${backendAvailable ? "border-green-200 bg-green-50 text-green-800" : "border-amber-200 bg-amber-50 text-amber-800"}`}>
-                {backendAvailable ? "Backend conectado: operações principais salvas no banco local." : "Backend não conectado: demonstração visual aberta, sem gravação no banco."}
+                {backendAvailable ? "Sessão de demonstração iniciada com dados simulados." : "Demonstração visual aberta, sem gravação definitiva."}
               </div>
             )}
 

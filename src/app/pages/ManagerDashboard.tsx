@@ -128,7 +128,7 @@ export function ManagerDashboard() {
         </div>
 
         {error && <div className="mb-6 border border-red-200 bg-red-50 text-red-700 px-4 py-3 text-sm">{error}</div>}
-        {loading && <div className="mb-6 border border-[#1a4d2e]/10 bg-white px-4 py-3 text-sm text-[#4f6f52]">Carregando propostas do backend...</div>}
+        {loading && <div className="mb-6 border border-[#1a4d2e]/10 bg-white px-4 py-3 text-sm text-[#4f6f52]">Carregando propostas demonstrativas...</div>}
 
         <div className="grid grid-cols-4 gap-4 mb-8">
           <div className="bg-white border-t-4 border-t-[#4f6f52] border-x border-b border-[#1a4d2e]/10 p-5 rounded-sm shadow-sm"><div className="flex items-center justify-between mb-2"><span className="text-sm font-medium text-[#4f6f52]">Propostas recebidas</span><Users className="h-5 w-5 text-[#4f6f52]" /></div><div className="text-3xl font-semibold text-[#1a4d2e]">{indicators.recebidas}</div></div>

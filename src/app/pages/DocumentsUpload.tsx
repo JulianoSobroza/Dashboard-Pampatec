@@ -327,7 +327,7 @@ export function DocumentsUpload() {
 
               <div className="bg-white border border-[#1a4d2e]/10 p-6">
                 <PrototypeNote>
-                  Esta etapa agora está integrada ao backend: arquivos são gravados em disco local,
+                  Esta etapa simula envio, versionamento e validação documental,
                   versões são registradas no SQLite e a validação do gestor altera o status da proposta.
                 </PrototypeNote>
               </div>

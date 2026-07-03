@@ -78,7 +78,7 @@ export function EntrepreneurDashboard() {
 
         {error && <div className="mb-6 border border-red-200 bg-red-50 text-red-700 px-4 py-3 text-sm">{error}</div>}
         {message && <div className="mb-6 border border-green-200 bg-green-50 text-green-800 px-4 py-3 text-sm">{message}</div>}
-        {loading && <div className="mb-6 border border-[#1a4d2e]/10 bg-white px-4 py-3 text-sm text-[#4f6f52]">Carregando propostas do backend...</div>}
+        {loading && <div className="mb-6 border border-[#1a4d2e]/10 bg-white px-4 py-3 text-sm text-[#4f6f52]">Carregando propostas demonstrativas...</div>}
 
         {current ? (
           <div className="grid grid-cols-3 gap-6 mb-8">

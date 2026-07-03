@@ -29,7 +29,7 @@ export function SubmissionForm() {
   useEffect(() => {
     listPublishedEditais()
       .then(setEditais)
-      .catch(() => setError("Não foi possível carregar os editais publicados. Verifique se o backend está rodando."));
+      .catch(() => setError("Não foi possível carregar os editais demonstrativos."));
   }, []);
 
   async function handleSubmit() {
@@ -47,7 +47,7 @@ export function SubmissionForm() {
     }
     const edital = editais[0];
     if (!edital) {
-      setError("Nenhum edital publicado foi encontrado no backend.");
+      setError("Nenhum edital demonstrativo publicado foi encontrado.");
       return;
     }
     setSaving(true);
@@ -69,7 +69,7 @@ export function SubmissionForm() {
       <main className="mx-auto max-w-[1080px] px-6 py-8">
         <div className="mb-6">
           <h1 className="text-[#1a4d2e] mb-2">Submissão de proposta</h1>
-          <p className="text-[#4f6f52]">{editais[0]?.titulo ?? "Carregando edital publicado..."} • manifestação real no backend</p>
+          <p className="text-[#4f6f52]">{editais[0]?.titulo ?? "Carregando edital publicado..."} • manifestação simulada</p>
         </div>
 
         <div className="grid grid-cols-4 gap-6">

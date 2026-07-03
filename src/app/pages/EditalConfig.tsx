@@ -56,10 +56,10 @@ export function EditalConfig() {
         body: JSON.stringify(buildPayload()),
       });
       setSavedEditalId(edital.id);
-      setSuccess(`Rascunho salvo no backend: ${edital.titulo}`);
+      setSuccess(`Rascunho demonstrativo salvo: ${edital.titulo}`);
       return edital.id;
     } catch (apiError) {
-      setError(apiError instanceof Error ? apiError.message : "Não foi possível salvar o edital no backend.");
+      setError(apiError instanceof Error ? apiError.message : "Não foi possível salvar o edital demonstrativo.");
       return null;
     } finally {
       setLoading(false);
@@ -75,7 +75,7 @@ export function EditalConfig() {
     try {
       const edital = await apiFetch<{ id: string; titulo: string }>(`/editais/${id}/publish`, { method: "POST" });
       setPublished(true);
-      setSuccess(`Edital publicado no backend: ${edital.titulo}`);
+      setSuccess(`Edital demonstrativo publicado: ${edital.titulo}`);
     } catch (apiError) {
       setError(apiError instanceof Error ? apiError.message : "Não foi possível publicar o edital.");
     } finally {
@@ -198,7 +198,7 @@ export function EditalConfig() {
               </ul>
             </div>
             <PrototypeNote>
-              Esta tela agora salva e publica editais no backend FastAPI quando o usuário está autenticado como gestor. Os controles visuais permanecem preservados para a demonstração.
+              Esta tela simula a configuração e a publicação do edital para fins de apresentação. Os controles visuais permanecem preservados para a demonstração.
             </PrototypeNote>
           </aside>
         </div>
