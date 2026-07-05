@@ -115,6 +115,8 @@ export function ManagerDashboard() {
           <div className="flex items-center gap-3 flex-wrap justify-end">
             <Link to="/gestor/editais" className="bg-[#1a4d2e] text-white px-4 py-2 hover:bg-[#4f6f52] text-sm">Configurar edital</Link>
             <Link to="/comissao" className="border border-[#1a4d2e]/20 text-[#1a4d2e] px-4 py-2 hover:bg-[#f4f1e8] text-sm">Comissão</Link>
+            <Link to="/pitch" className="border border-[#1a4d2e]/20 text-[#1a4d2e] px-4 py-2 hover:bg-[#f4f1e8] text-sm">Pitch</Link>
+            <Link to="/gestor/publicacoes" className="border border-[#1a4d2e]/20 text-[#1a4d2e] px-4 py-2 hover:bg-[#f4f1e8] text-sm">Resultados</Link>
             <span className="text-sm font-medium text-[#4a4a4a]">Processo Seletivo:</span>
             <div className="relative">
               <select value={selectedProcess} onChange={(e) => setSelectedProcess(e.target.value)} className="appearance-none bg-white border border-[#1a4d2e]/20 text-[#1a4d2e] font-semibold py-2 pl-4 pr-10 rounded-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-[#1a4d2e]/50 cursor-pointer">

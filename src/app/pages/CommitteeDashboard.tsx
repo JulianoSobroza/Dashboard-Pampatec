@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router";
 import { Header } from "../components/Header";
 import { StatusBadge } from "../components/StatusBadge";
 import { PrototypeNote } from "../components/PrototypeNote";
@@ -120,7 +121,11 @@ export function CommitteeDashboard() {
             <h1 className="text-[#1a4d2e] mb-2">Painel da Comissão Técnica</h1>
             <p className="text-[#4f6f52]">Acompanhe avaliações concluídas, solicite complementações e registre a decisão da comissão.</p>
           </div>
-          {proposal && <StatusBadge status={statusLabel(proposal.estado)} variant={statusVariant(proposal.estado)} />}
+          <div className="flex items-center gap-3">
+            <Link to="/pitch" className="border border-[#1a4d2e]/20 text-[#1a4d2e] px-4 py-2 hover:bg-[#f4f1e8] text-sm">Pitch</Link>
+            <Link to="/comissao/recursos" className="border border-[#1a4d2e]/20 text-[#1a4d2e] px-4 py-2 hover:bg-[#f4f1e8] text-sm">Julgar recursos</Link>
+            {proposal && <StatusBadge status={statusLabel(proposal.estado)} variant={statusVariant(proposal.estado)} />}
+          </div>
         </div>
 
         {error && <div className="mb-4 border border-red-200 bg-red-50 p-3 text-sm text-red-800">{error}</div>}

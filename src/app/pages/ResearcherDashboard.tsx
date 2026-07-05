@@ -180,9 +180,9 @@ export function ResearcherDashboard() {
               
               {/* Direita: Ações */}
               <div className="md:w-56 flex flex-col justify-center border-t md:border-t-0 md:border-l border-[#1a4d2e]/10 pt-5 md:pt-0 md:pl-6 shrink-0">
-                <button className="w-full bg-[#1a4d2e] text-white px-4 py-2.5 text-sm font-medium hover:bg-[#4f6f52] transition-colors mb-3">
+                <Link to={`/pesquisador/vinculacao/${prop.id}`} className="w-full flex items-center justify-center bg-[#1a4d2e] text-white px-4 py-2.5 text-sm font-medium hover:bg-[#4f6f52] transition-colors mb-3">
                   Manifestar Interesse
-                </button>
+                </Link>
                 <Link to={`/proposta/${prop.id}`} className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm text-[#1a4d2e] font-medium border border-[#1a4d2e]/30 hover:bg-[#1a4d2e]/5 transition-colors">
                   Ver Detalhes <ChevronRight className="h-4 w-4" />
                 </Link>

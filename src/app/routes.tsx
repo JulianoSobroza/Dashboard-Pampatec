@@ -17,6 +17,10 @@ import { CommitteeDashboard } from "./pages/CommitteeDashboard";
 import { AdminDashboard } from "./pages/AdminDashboard";
 import { EditalConfig } from "./pages/EditalConfig";
 import { AccessDenied } from "./pages/AccessDenied";
+import { ResourceJudgment } from "./pages/ResourceJudgment";
+import { PitchManagement } from "./pages/PitchManagement";
+import { PublicationManagement } from "./pages/PublicationManagement";
+import { ResearchLink } from "./pages/ResearchLink";
 
 export const router = createBrowserRouter([
   {
@@ -90,5 +94,21 @@ export const router = createBrowserRouter([
   {
     path: "/acesso-negado",
     Component: AccessDenied,
+  },
+  {
+    path: "/comissao/recursos",
+    Component: ResourceJudgment,
+  },
+  {
+    path: "/pitch",
+    Component: PitchManagement,
+  },
+  {
+    path: "/gestor/publicacoes",
+    Component: PublicationManagement,
+  },
+  {
+    path: "/pesquisador/vinculacao/:id",
+    Component: ResearchLink,
   },
 ]);
